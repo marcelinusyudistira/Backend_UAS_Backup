@@ -98,7 +98,7 @@ class CategoryController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'namaKategori' => 'required|max:60|unique:categories',
+            'namaKategori' => 'required|max:60',
             'deskripsi' => 'required',
             'gambarKategori' => 'required'
         ]);
