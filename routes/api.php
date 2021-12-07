@@ -24,6 +24,10 @@ Route::post('register', 'Api\AuthController@register');
 Route::post('login', 'Api\AuthController@login');
 
 Route::group(['middleware' => 'auth:api'], function (){
+    Route::post('logout', 'Api\AuthController@logout');
+});
+
+Route::group(['middleware' => 'auth:api'], function (){
     Route::get('category', 'Api\CategoryController@index');
     Route::get('category/{id}', 'Api\CategoryController@show');
     Route::post('category', 'Api\CategoryController@store');
@@ -51,4 +55,20 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('user', 'Api\UserController@index');
     Route::get('user/{id}', 'Api\UserController@show');
     Route::post('user', 'Api\UserController@store');
+});
+
+Route::group(['middleware' => 'auth:api'], function (){
+    Route::get('order', 'Api\OrderController@index');
+    Route::get('order/{id}', 'Api\OrderController@show');
+    Route::post('order', 'Api\OrderController@store');
+    Route::put('order/{id}', 'Api\OrderController@update');
+    Route::delete('order/{id}', 'Api\OrderController@destroy');
+});
+
+Route::group(['middleware' => 'auth:api'], function (){
+    Route::get('orderdetail', 'Api\OrderDetailController@index');
+    Route::get('orderdetail/{id}', 'Api\OrderDetailController@show');
+    Route::post('orderdetail', 'Api\OrderDetailController@store');
+    Route::put('orderdetail/{id}', 'Api\OrderDetailController@update');
+    Route::delete('orderdetail/{id}', 'Api\OrderDetailController@destroy');
 });

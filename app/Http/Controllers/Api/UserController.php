@@ -64,4 +64,44 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function update(Request $request, $id){
+        $user = User::find($id);
+
+        if(is_null($user)){
+            return response([
+                'message' => 'User Not Found',
+                'data' => null
+            ], 404);
+        }
+
+        $updateData = $request->all();
+        $validate = Validator::make($updateData, [
+            'name' => ['required','max:60', Rule::unique('users')->ignore($user)],
+            'email' => 'required|email:rfc,dns|unique:users',
+            'password' => 'required'
+        ]);
+
+        $updateData['password'] = bcrypt($request->password);
+
+        if($validate->fails())
+            return response(['message' => $validate->errors()], 400);
+
+        $user->name = $updateData['name'];
+        $user->email = $updateData['email'];
+        $user->password = $updateData['password'];
+
+
+        if($user->save()) {
+            return response([
+                'message' => 'Update User Success',
+                'data' => $user
+            ], 200);
+        }
+        
+        return response([
+            'message' => 'Update User Failed',
+            'data' => null
+        ], 400);
+    }
+
 }
