@@ -27,6 +27,11 @@ class OrderDetailController extends Controller
         ], 400);
     }
 
+    public function total(){
+        $totalharga = OrderDetail::all()->sum('jumlah_harga');
+        return response($totalharga,200);
+    }
+
     public function show($id)
     {
         $orderdetail = OrderDetail::find($id);

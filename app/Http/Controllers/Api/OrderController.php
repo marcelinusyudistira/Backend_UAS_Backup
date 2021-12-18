@@ -48,7 +48,7 @@ class OrderController extends Controller
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
             'user_id' => 'required|numeric',
-            'tanggal' => 'required|numeric',
+            'tanggal' => 'required|date',
             'status' => 'required|max:60',
             'kode' => 'required|numeric',
             'jumlah_harga' => 'required|numeric',
@@ -101,7 +101,7 @@ class OrderController extends Controller
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
             'user_id' => 'required|numeric',
-            'tanggal' => 'required|numeric',
+            'tanggal' => 'required|date',
             'status' => 'required|max:60',
             'kode' => 'required|numeric',
             'jumlah_harga' => 'required|numeric',
